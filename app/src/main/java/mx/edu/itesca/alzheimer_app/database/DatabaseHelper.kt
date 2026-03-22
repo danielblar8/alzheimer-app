@@ -148,4 +148,29 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         cursor.close()
         return lista
     }
+
+    fun obtenerUltimaEvaluacion(pacienteId: Int, instrumento: String): Evaluacion? {
+        val db = readableDatabase
+        val cursor = db.query(
+            TABLE_EVALUACIONES, null,
+            "$COL_EVAL_PACIENTE_ID=? AND $COL_EVAL_INSTRUMENTO=?",
+            arrayOf(pacienteId.toString(), instrumento),
+            null, null,
+            "$COL_EVAL_FECHA DESC",
+            "1"
+        )
+        val evaluacion = if (cursor.moveToFirst()) {
+            Evaluacion(
+                id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_EVAL_ID)),
+                pacienteId = cursor.getInt(cursor.getColumnIndexOrThrow(COL_EVAL_PACIENTE_ID)),
+                instrumento = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVAL_INSTRUMENTO)),
+                puntaje = cursor.getInt(cursor.getColumnIndexOrThrow(COL_EVAL_PUNTAJE)),
+                puntajeMaximo = cursor.getInt(cursor.getColumnIndexOrThrow(COL_EVAL_PUNTAJE_MAX)),
+                fecha = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVAL_FECHA)),
+                observaciones = cursor.getString(cursor.getColumnIndexOrThrow(COL_EVAL_OBSERVACIONES))
+            )
+        } else null
+        cursor.close()
+        return evaluacion
+    }
 }
