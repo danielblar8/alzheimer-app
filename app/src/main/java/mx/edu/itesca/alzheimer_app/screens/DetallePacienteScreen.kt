@@ -20,25 +20,22 @@ fun DetallePacienteScreen(
     pacienteId: Int,
     onNuevaEvaluacion: (Int) -> Unit,
     onVerHistorial: (Int) -> Unit,
+    onVerProgreso: (Int) -> Unit,
     onRegresar: () -> Unit
+
 ) {
     val pacientes = db.obtenerPacientes()
     val paciente = pacientes.find { it.id == pacienteId }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Detalle del Paciente") },
+            AppTopBar(
+                titulo = "Detalle del Paciente",
                 navigationIcon = {
                     IconButton(onClick = onRegresar) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Regresar")
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
-                )
+                }
             )
         }
     ) { padding ->
@@ -95,6 +92,12 @@ fun DetallePacienteScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Ver historial de evaluaciones")
+                }
+                OutlinedButton(
+                    onClick = { onVerProgreso(pacienteId) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Ver progreso")
                 }
             }
         }

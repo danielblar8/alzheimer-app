@@ -51,19 +51,7 @@ fun ListaPacientesScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Estancia Alzheimer Obregón",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary
-                )
-            )
+            AppTopBar(titulo = "Estancia Alzheimer Obregón")
         },
         floatingActionButton = {
             FloatingActionButton(onClick = onAgregarPaciente) {

@@ -33,18 +33,13 @@ fun AltaPacienteScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Nuevo Paciente") },
+            AppTopBar(
+                titulo = "Nuevo Paciente",
                 navigationIcon = {
                     IconButton(onClick = onCancelar) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Regresar")
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
-                )
+                }
             )
         }
     ) { padding ->

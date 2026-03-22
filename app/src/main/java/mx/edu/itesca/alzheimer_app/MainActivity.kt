@@ -26,11 +26,18 @@ class MainActivity : ComponentActivity() {
                         is Screen.DetallePaciente -> Screen.ListaPacientes
                         is Screen.NuevaEvaluacion -> Screen.DetallePaciente(screen.pacienteId)
                         is Screen.Historial -> Screen.DetallePaciente(screen.pacienteId)
+                        is Screen.Progreso -> Screen.DetallePaciente(screen.pacienteId)
                         else -> Screen.ListaPacientes
                     }
                 }
 
                 when (val screen = currentScreen) {
+                    is Screen.Progreso -> ProgresoScreen(
+                        db = db,
+                        pacienteId = screen.pacienteId,
+                        onRegresar = { currentScreen = Screen.DetallePaciente(screen.pacienteId) }
+                    )
+
                     is Screen.ListaPacientes -> ListaPacientesScreen(
                         db = db,
                         onAgregarPaciente = { currentScreen = Screen.AltaPaciente },
@@ -46,7 +53,9 @@ class MainActivity : ComponentActivity() {
                         pacienteId = screen.pacienteId,
                         onNuevaEvaluacion = { id -> currentScreen = Screen.NuevaEvaluacion(id) },
                         onVerHistorial = { id -> currentScreen = Screen.Historial(id) },
+                        onVerProgreso = { id -> currentScreen = Screen.Progreso(id) },
                         onRegresar = { currentScreen = Screen.ListaPacientes }
+
                     )
                     is Screen.NuevaEvaluacion -> NuevaEvaluacionScreen(
                         db = db,

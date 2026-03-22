@@ -30,34 +30,31 @@ fun NuevaEvaluacionScreen(
     var observaciones by remember { mutableStateOf("") }
     var errorMensaje by remember { mutableStateOf("") }
 
-    val instrumentos = listOf("MMSE", "Tinetti")
+    val instrumentos = listOf("MMSE", "Tinetti", "MoCA")
 
     val puntajeMaximo = when (instrumentoSeleccionado) {
         "MMSE" -> 30
         "Tinetti" -> 28
+        "MoCA" -> 30
         else -> 0
     }
 
     val descripcionInstrumento = when (instrumentoSeleccionado) {
         "MMSE" -> "Mini-Mental State Examination\nPuntaje máximo: 30\n• 24-30: Normal\n• 18-23: Deterioro leve\n• 0-17: Deterioro grave"
         "Tinetti" -> "Escala de Tinetti (equilibrio y marcha)\nPuntaje máximo: 28\n• 26-28: Normal\n• 19-25: Riesgo de caída\n• <19: Alto riesgo de caída"
+        "MoCA" -> "Montreal Cognitive Assessment\nPuntaje maximo: 30\n• 26-30: Normal\n• 21-25: Deterioro leve\n• 0-20: Demencia leve"
         else -> ""
     }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Nueva Evaluación") },
+            AppTopBar(
+                titulo = "Nueva Evaluación",
                 navigationIcon = {
                     IconButton(onClick = onCancelar) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Regresar")
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
-                )
+                }
             )
         }
     ) { padding ->

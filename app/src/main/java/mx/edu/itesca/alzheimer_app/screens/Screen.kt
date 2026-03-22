@@ -6,4 +6,8 @@ sealed class Screen {
     data class DetallePaciente(val pacienteId: Int) : Screen()
     data class NuevaEvaluacion(val pacienteId: Int) : Screen()
     data class Historial(val pacienteId: Int) : Screen()
+
+    data class Progreso(val pacienteId: Int) : Screen()
+
+
 }

@@ -27,18 +27,13 @@ fun HistorialScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Historial de Evaluaciones") },
+            AppTopBar(
+                titulo = "Historial de Evaluaciones",
                 navigationIcon = {
                     IconButton(onClick = onRegresar) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Regresar")
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
-                )
+                }
             )
         }
     ) { padding ->
@@ -83,6 +78,11 @@ fun CardEvaluacion(evaluacion: Evaluacion) {
             evaluacion.puntaje >= 26 -> Pair(MaterialTheme.colorScheme.primary, "Normal")
             evaluacion.puntaje >= 19 -> Pair(MaterialTheme.colorScheme.tertiary, "Riesgo de caída")
             else -> Pair(MaterialTheme.colorScheme.error, "Alto riesgo de caída")
+        }
+        "MoCA" -> when {
+            evaluacion.puntaje >= 26 -> Pair(MaterialTheme.colorScheme.primary, "Normal")
+            evaluacion.puntaje >= 21 -> Pair(MaterialTheme.colorScheme.tertiary, "Deterioro leve")
+            else -> Pair(MaterialTheme.colorScheme.error, "Demencia leve")
         }
         else -> Pair(MaterialTheme.colorScheme.primary, "")
     }
